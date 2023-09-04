@@ -7,12 +7,15 @@ import { LandingPageRoutingModule } from './landing-page-routing.module';
 
 import { LandingPage } from './landing-page.page';
 
+import { RankingComponent } from '../ranking/ranking.component';
+
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    LandingPageRoutingModule
+    LandingPageRoutingModule,
+    RankingComponent
   ],
   declarations: [LandingPage]
 })

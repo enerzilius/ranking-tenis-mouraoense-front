@@ -1,0 +1,37 @@
+ion-card-header{
+    --background: #D67D4B;
+}
+
+.item-header{
+    --background: #D67D4B;
+}
+.etapa-nav{
+    // --background: #D67D4B;
+}
+ion-searchbar{
+    --background: #f0f0f0;
+    width: 50%;
+}
+
+@media (min-width: 650px){
+    .search-nav{
+        margin-left: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 650px){
+    .search-nav{
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    ion-searchbar{
+        --background: #f0f0f0;
+        width: 100%;
+    }
+}
+

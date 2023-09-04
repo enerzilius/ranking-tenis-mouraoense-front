@@ -1,0 +1,47 @@
+
+
+<div class="search-nav">
+  <ion-buttons> 
+    <ion-button class="etapa-nav">
+      Geral
+    </ion-button>
+    <ion-button class="etapa-nav">
+      1º Etapa
+    </ion-button>
+    <ion-button class="etapa-nav">
+      2º Etapa
+    </ion-button>
+    <ion-button class="etapa-nav">
+      3º Etapa
+    </ion-button>
+    <ion-button class="etapa-nav">
+      4º Etapa
+    </ion-button>
+  </ion-buttons>
+  
+  <ion-searchbar 
+  show-cancel-button="focus" 
+  placeholder="Pesquisar tenista..." 
+  [debounce]="1000" 
+  (ionInput)="handleInput($event)">
+  </ion-searchbar>
+</div>
+
+<ion-card>
+  <ion-item class="item-header">
+    <ion-label> Pos. </ion-label>
+    <ion-label> Nome </ion-label>
+    <ion-label> Idade </ion-label>
+    <ion-label> Pontos </ion-label>
+  </ion-item>
+  <ion-card-content>
+    <ion-list>
+      <ion-item *ngFor="let result of results">
+        <ion-label>{{result.id}}</ion-label>
+        <ion-label>{{result.nome}}</ion-label>
+        <ion-label>{{result.idade}}</ion-label>
+        <ion-label>{{result.pontos}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

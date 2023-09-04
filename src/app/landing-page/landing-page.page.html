@@ -2,13 +2,48 @@
   <div class="header-img"></div>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button>
+      <ion-button id="masculino">
         Masculino
       </ion-button>
-      <ion-button>
+      <ion-popover trigger="masculino" triggerAction="hover">
+        <ng-template>
+            <ion-list class="ion-padding">
+              <ion-item>
+                1MA
+              </ion-item>
+              <ion-item>
+                2MA
+              </ion-item>
+              <ion-item>
+                3MA
+              </ion-item>
+              <ion-item>
+                4MA
+              </ion-item>
+            </ion-list>
+        </ng-template>
+      </ion-popover>
+      <ion-button id="feminino">
         Feminino
       </ion-button>
-      <ion-button>
+      <ion-popover trigger="feminino" triggerAction="hover">
+        <ng-template>
+          <ion-content class="ion-padding">
+            <ion-list>
+              <ion-item>
+                1FE
+              </ion-item>
+              <ion-item>
+                2FE
+              </ion-item>
+              <ion-item>
+                3FE
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
+      <ion-button id="infantil">
         Infantil
       </ion-button>
     </ion-buttons>
@@ -17,8 +52,12 @@
         Log-In
       </ion-button>
     </ion-buttons>
-    <ion-progress-bar type="indeterminate"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>
+
+<ion-content>
+  <app-ranking>
+  </app-ranking>
+</ion-content>
 
 
