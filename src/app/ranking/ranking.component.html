@@ -1,23 +1,23 @@
 
 
 <div class="search-nav">
-  <ion-buttons> 
-    <ion-button class="etapa-nav">
+  <ion-segment [scrollable]="true" color="dark"> 
+    <ion-segment-button class="etapa-nav" (click)="goTo(1, $event)">
       Geral
-    </ion-button>
-    <ion-button class="etapa-nav">
+    </ion-segment-button>
+    <ion-segment-button class="etapa-nav" (click)="goTo(2, $event)">
       1º Etapa
-    </ion-button>
-    <ion-button class="etapa-nav">
+    </ion-segment-button>
+    <ion-segment-button class="etapa-nav" (click)="goTo(3, $event)">
       2º Etapa
-    </ion-button>
-    <ion-button class="etapa-nav">
+    </ion-segment-button>
+    <ion-segment-button class="etapa-nav" (click)="goTo(4, $event)">
       3º Etapa
-    </ion-button>
-    <ion-button class="etapa-nav">
+    </ion-segment-button>
+    <ion-segment-button class="etapa-nav" (click)="goTo(5, $event)">
       4º Etapa
-    </ion-button>
-  </ion-buttons>
+    </ion-segment-button>
+  </ion-segment>
   
   <ion-searchbar 
   show-cancel-button="focus" 
@@ -26,7 +26,7 @@
   </ion-searchbar>
 </div>
 
-<swiper-container>
+<swiper-container #slides allowTouchMove="false" [options]="swiperConfig" (init)="initSlides(slides)" onSlideChange="slideChanged()">
   <swiper-slide>
     <ion-card>
       <ion-item class="item-header">
@@ -46,5 +46,89 @@
         </ion-list>
       </ion-card-content>
     </ion-card>
+
   </swiper-slide>
+
+  <swiper-slide>
+    <ion-card>
+      <ion-item class="item-header">
+        <ion-label> Pos. </ion-label>
+        <ion-label> Nome </ion-label>
+        <ion-label> Idade </ion-label>
+        <ion-label> Pontos </ion-label>
+      </ion-item>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let result of results">
+            <ion-label>{{result.id}}</ion-label>
+            <ion-label>{{result.nome}}</ion-label>
+            <ion-label>{{result.idade}}</ion-label>
+            <ion-label>{{result.pontos1}}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </swiper-slide>
+  <swiper-slide>
+    <ion-card>
+      <ion-item class="item-header">
+        <ion-label> Pos. </ion-label>
+        <ion-label> Nome </ion-label>
+        <ion-label> Idade </ion-label>
+        <ion-label> Pontos </ion-label>
+      </ion-item>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let result of results">
+            <ion-label>{{result.id}}</ion-label>
+            <ion-label>{{result.nome}}</ion-label>
+            <ion-label>{{result.idade}}</ion-label>
+            <ion-label>{{result.pontos2}}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </swiper-slide>
+  <swiper-slide>
+    <ion-card>
+      <ion-item class="item-header">
+        <ion-label> Pos. </ion-label>
+        <ion-label> Nome </ion-label>
+        <ion-label> Idade </ion-label>
+        <ion-label> Pontos </ion-label>
+      </ion-item>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let result of results">
+            <ion-label>{{result.id}}</ion-label>
+            <ion-label>{{result.nome}}</ion-label>
+            <ion-label>{{result.idade}}</ion-label>
+            <ion-label>{{result.pontos3}}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </swiper-slide>
+  <swiper-slide>
+    <ion-card>
+      <ion-item class="item-header">
+        <ion-label> Pos. </ion-label>
+        <ion-label> Nome </ion-label>
+        <ion-label> Idade </ion-label>
+        <ion-label> Pontos </ion-label>
+      </ion-item>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let result of results">
+            <ion-label>{{result.id}}</ion-label>
+            <ion-label>{{result.nome}}</ion-label>
+            <ion-label>{{result.idade}}</ion-label>
+            <ion-label>{{result.pontos4}}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </swiper-slide>
+
 </swiper-container>
+
