@@ -26,7 +26,7 @@
   </ion-searchbar>
 </div>
 
-<swiper-container #slides allowTouchMove="false" [options]="swiperConfig" (init)="initSlides(slides)" onSlideChange="slideChanged()">
+<swiper-container #slides [options]="swiperConfig" (init)="initSlides(slides)" slideChangeTransitionStart="slideChanged()">
   <swiper-slide>
     <ion-card>
       <ion-item class="item-header">

@@ -8,17 +8,8 @@ import {
 } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import Swiper from 'swiper';
-
-interface Data {
-  id: number;
-  nome: string;
-  idade: number;
-  pontos: number;
-  pontos1: number;
-  pontos2: number;
-  pontos3: number;
-  pontos4: number;
-}
+import { tenista } from '../interfaces/tenista';
+import { tenistas } from '../data/tenistas';
 
 @Component({
   standalone: true,
@@ -32,131 +23,27 @@ export class RankingComponent implements OnInit {
   
   // @Input() items: any;
 
-  public data: Data[] = [
-    {
-      id: 1,
-      nome: 'Águias da Noite',
-      idade: 0,
-      pontos: 20000,
-      pontos1: 5000,
-      pontos2: 5000,
-      pontos3: 5000,
-      pontos4: 5000,
-    },
-    {
-      id: 2,
-      nome: 'Marcos',
-      idade: 57,
-      pontos: 550,
-      pontos1: 100,
-      pontos2: 100,
-      pontos3: 100,
-      pontos4: 250,
-    },
-    {
-      id: 3,
-      nome: 'Giulio',
-      idade: 16,
-      pontos: 450,
-      pontos1: 150,
-      pontos2: 100,
-      pontos3: 100,
-      pontos4: 100,
-    },
-    {
-      id: 4,
-      nome: 'Walter',
-      idade: 33,
-      pontos: 400,
-      pontos1: 100,
-      pontos2: 100,
-      pontos3: 100,
-      pontos4: 100,
-    },
-    {
-      id: 5,
-      nome: 'Zé',
-      idade: 17,
-      pontos: 200,
-      pontos1: 50,
-      pontos2: 100,
-      pontos3: 50,
-      pontos4: 0,
-    },
-    {
-      id: 6,
-      nome: 'ELE',
-      idade: 16,
-      pontos: 150,
-      pontos1: 50,
-      pontos2: 25,
-      pontos3: 25,
-      pontos4: 50,
-    },
-    {
-      id: 7,
-      nome: 'É',
-      idade: 16,
-      pontos: 150,
-      pontos1: 5000,
-      pontos2: 5000,
-      pontos3: 5000,
-      pontos4: 5000,
-    },
-    {
-      id: 8,
-      nome: 'O',
-      idade: 16,
-      pontos: 150,
-      pontos1: 50,
-      pontos2: 25,
-      pontos3: 25,
-      pontos4: 50,
-    },
-    {
-      id: 9,
-      nome: 'ERICK',
-      idade: 16,
-      pontos: 150,
-      pontos1: 50,
-      pontos2: 25,
-      pontos3: 25,
-      pontos4: 50,
-    },
-    {
-      id: 10,
-      nome: 'M32',
-      idade: 16,
-      pontos: 4,
-      pontos1: 1,
-      pontos2: 1,
-      pontos3: 1,
-      pontos4: 1,
-    },
-  ];
+  public tenista: tenista[] = tenistas
 
+  
+  
   @ViewChild('swiperContainer', { static: true }) swiper: Swiper;
-  public results: Data[] = [...this.data];
-  public names: string[] = [];
+  public results: tenista[] = [...this.tenista];
+  public names: string[] = this.tenista.map((person) => person.nome);
   public swiperConfig = {
     slidesPerView: 1,
     allowTouchMove: false,
     autoHeight: false,
-    allowSlideNext: false,
-    allowSlidePrev: false
+    allowSlideNext: true,
+    allowSlidePrev: true
   };
   currentIndex: number = 0;
-
-
+  
+  
   constructor() {
   }
   
-  ngOnInit() {
-    this.data.forEach((person) => {
-      this.names.push(person.nome);
-    });
-    
-  }
+  ngOnInit() {}
 
   initSlides(slides: HTMLElement) {
     try {
@@ -170,28 +57,28 @@ export class RankingComponent implements OnInit {
     }
   }
 
-  filterByName(obj: Object, names: string[], query: string) {
+  filterByName(names: string[], query: string) {
     return names.filter((d) => d.toLowerCase().indexOf(query) > -1);
   }
 
   handleInput(event: any) {
-    const found: Data[] = [];
-    // console.log(this.data)
+    const found: tenista[] = [];
+    // console.log(this.tenista)
     const query = event.target.value.toLowerCase();
     // console.log(query)
     if (query == '') {
-      this.results = [...this.data];
+      this.results = [...this.tenista];
     } else {
-      let searchedNames = this.filterByName(this.data, this.names, query);
+      let searchedNames = this.filterByName(this.names, query);
       for (let name of searchedNames) {
-        found.push(this.data.find((val) => val.nome == name)!);
+        found.push(this.tenista.find((val) => val.nome == name)!);
       }
       this.results = found!;  
     }
   }
 
   goTo(slide: number, e: Event) {
-    this.swiper.slideTo(slide,100, true)
+    this.swiper.slideTo(slide,100, false)
     // this.swiper.slideNext()
     this.slideChanged(e)
   }

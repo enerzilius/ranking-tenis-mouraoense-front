@@ -1,0 +1,42 @@
+<ion-modal trigger="open-login">
+  <ng-template>
+    <ion-header [translucent]="true">
+      <ion-toolbar >
+        <ion-title >Login:</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="cancel()"
+            ><ion-icon name="close"></ion-icon
+          ></ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-item fill="clear">
+        <ion-icon name="person"></ion-icon>
+        <ion-input placeholder="Login" class="input" type="text" (ionInput)="handleInputUser($event)"></ion-input>
+      </ion-item>
+      <ion-item fill="clear">
+        <ion-icon name="log-in"></ion-icon>
+        <ion-input class="input"
+          placeholder="Senha"
+          type="password"
+          (ionInput)="handleInputPassword($event)"
+        ></ion-input>
+      </ion-item>
+      <ion-text *ngIf="errado" color="danger"><ion-icon name="warning"></ion-icon>Usuário ou senha incorretas!</ion-text>
+      <div class="button-box">
+        
+        <ion-button
+          (click)="loginVerif()"
+          color="primary"
+          color="warning"
+        >
+          <ion-icon name="checkmark"></ion-icon>
+          Login
+        </ion-button>
+      </div>
+
+      <ion-img src="../../assets/jogando-tenis.png" class="img"></ion-img>
+    </ion-content>
+  </ng-template>
+</ion-modal>

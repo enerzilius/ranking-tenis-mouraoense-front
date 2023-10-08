@@ -9,13 +9,16 @@ import { LandingPage } from './landing-page.page';
 
 import { RankingComponent } from '../ranking/ranking.component';
 
+import { LoginScreenComponent } from '../login-screen/login-screen.component';
+
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
     LandingPageRoutingModule,
-    RankingComponent
+    RankingComponent,
+    LoginScreenComponent,
   ],
   declarations: [LandingPage]
 })

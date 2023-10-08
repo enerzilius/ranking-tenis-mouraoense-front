@@ -1,0 +1,22 @@
+ion-content{
+    --background: linear-gradient(#FFA877, #AAAA )
+}
+
+.img {
+    height: 320px ;
+}
+
+ion-icon{
+    margin-right: 2%;
+}
+
+.button-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ion-text{
+    margin:20px;
+    font-size: 20px;
+}
