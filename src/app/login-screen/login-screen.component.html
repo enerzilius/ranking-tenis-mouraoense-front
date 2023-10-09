@@ -23,7 +23,7 @@
           (ionInput)="handleInputPassword($event)"
         ></ion-input>
       </ion-item>
-      <ion-text *ngIf="errado" color="danger"><ion-icon name="warning"></ion-icon>Usuário ou senha incorretas!</ion-text>
+      <ion-text *ngIf="errado" color="danger"><ion-icon name="warning"></ion-icon>{{mensagemErro}}</ion-text>
       <div class="button-box">
         
         <ion-button

@@ -13,6 +13,8 @@ import { login_info } from '../data/login';
 })
 export class LoginScreenComponent {
   public errado: boolean = false;
+  public mensagemErro: string = '';
+  // public logado: boolean = false;
   @ViewChild(IonModal) modal: IonModal;
 
   constructor(private http: HttpClient) {}
@@ -29,37 +31,38 @@ export class LoginScreenComponent {
 
   handleInputUser(e: any) {
     this.user = e.target.value;
-    console.log(this.user);
   }
   handleInputPassword(e: any) {
     this.passw = e.target.value;
-    console.log(this.passw);
   }
 
   loginVerif() {
     let credentials = { user: this.user, password: this.passw };
-    console.log(login_info)
     console.log(credentials);
-    // this.http.post(
-    //   'http://localhost:3000/',  credentials
-    // ).subscribe({
-    //   complete: (res: any) => {
-    //     this.errado = false;
-    //     // logado = res;
-    //     this.user = '';
-    //     this.passw = '';
-    //     this.cancel();
-    //     console.info
-    //   },
-    //   error: console.error
-    // })
-    if (credentials.user == login_info.login && credentials.password == login_info.password) {
-      this.errado = false;
-      this.user = '';
-      this.passw = '';
-      this.cancel();
-    } else {
+    try {
+      if (credentials.password == '' && credentials.user == ''){
+        this.mensagemErro = "Insira dados válidos.";
+        this.errado = true;
+      }else{
+        this.http.post(
+          'http://127.0.0.1:3000/login', credentials
+        ).subscribe((res: any) => {
+            console.log(res)
+            if (res){
+              console.log(res)
+              this.cancel();
+              console.info
+            }else{
+              this.mensagemErro = "Usuário ou senha incorretos.";
+              this.errado = true;
+            }
+          },
+        )
+      }
+    } catch (error) {
+      this.mensagemErro = "Erro.";
       this.errado = true;
+      console.error(error)
     }
   }
 }
