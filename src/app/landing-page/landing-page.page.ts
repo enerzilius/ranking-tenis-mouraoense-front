@@ -8,10 +8,13 @@ import { bootstrapApplication } from '@angular/platform-browser';
   styleUrls: ['landing-page.page.scss'],
 })
 export class LandingPage {
-  isLogado: boolean = false;
+  isLogado: boolean = (sessionStorage.getItem('logado') == 'true') || false;
 
   constructor() {}
   
-  logOut() {}
+  logOut() {
+    sessionStorage.setItem('logado', 'false')
+    console.log(sessionStorage.getItem('logado'))
+  }
 
 }

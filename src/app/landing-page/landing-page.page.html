@@ -51,10 +51,16 @@
         Infantil
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="end">
+    <ion-buttons *ngIf="!isLogado" slot="end">
       <ion-button id="open-login">
-        <ion-icon slot="start" [name]="!isLogado ? 'log-in' : 'log-out'"></ion-icon>
-      {{!isLogado ? 'Log-In' : 'Log-Out'}}
+        <ion-icon slot="start" name="log-in"></ion-icon>
+        Log-In
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons *ngIf="isLogado" slot="end" (click)="logOut()">
+      <ion-button>
+        <ion-icon slot="start" name="log-out"></ion-icon>
+        Log-Out
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

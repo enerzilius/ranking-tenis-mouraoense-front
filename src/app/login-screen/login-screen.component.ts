@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { IonModal, IonicModule } from '@ionic/angular';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { login_info } from '../data/login';
+import { Observable,Subscription, interval  } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -14,6 +14,7 @@ import { login_info } from '../data/login';
 export class LoginScreenComponent {
   public errado: boolean = false;
   public mensagemErro: string = '';
+  private updateSubscription: Subscription;
   // public logado: boolean = false;
   @ViewChild(IonModal) modal: IonModal;
 
@@ -37,6 +38,7 @@ export class LoginScreenComponent {
   }
 
   loginVerif() {
+    console.log(sessionStorage.getItem('logado'))
     let credentials = { user: this.user, password: this.passw };
     console.log(credentials);
     try {
@@ -50,9 +52,14 @@ export class LoginScreenComponent {
             console.log(res)
             if (res){
               console.log(res)
+              sessionStorage.setItem('logado', 'true');
+              console.log(sessionStorage.getItem('logado'))
               this.cancel();
-              console.info
+              console.info;
+              // this.updateSubscription = interval(3000).subscribe((val) => )
             }else{
+              sessionStorage.setItem('logado', 'false');
+              console.log(sessionStorage.getItem('logado'))
               this.mensagemErro = "Usuário ou senha incorretos.";
               this.errado = true;
             }
