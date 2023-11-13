@@ -5,6 +5,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./landing-page/landing-page.module').then(m => m.LandingPageModule)
+  },
+  {
+    path: 'LoggedPage',
+    loadChildren: () => import('./logged-page/logged-page.module').then( m => m.LoggedPageModule)
   }
 ];
 @NgModule({

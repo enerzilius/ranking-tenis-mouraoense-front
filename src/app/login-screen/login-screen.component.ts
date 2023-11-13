@@ -3,6 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonModal, IonicModule } from '@ionic/angular';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Observable,Subscription, interval  } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -18,7 +19,7 @@ export class LoginScreenComponent {
   // public logado: boolean = false;
   @ViewChild(IonModal) modal: IonModal;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, public router: Router) {}
 
   user: string = '';
   passw: string = '';
@@ -38,9 +39,7 @@ export class LoginScreenComponent {
   }
 
   loginVerif() {
-    console.log(sessionStorage.getItem('logado'))
     let credentials = { user: this.user, password: this.passw };
-    console.log(credentials);
     try {
       if (credentials.password == '' && credentials.user == ''){
         this.mensagemErro = "Insira dados válidos.";
@@ -49,17 +48,13 @@ export class LoginScreenComponent {
         this.http.post(
           'http://127.0.0.1:3000/login', credentials
         ).subscribe((res: any) => {
-            console.log(res)
             if (res){
-              console.log(res)
               sessionStorage.setItem('logado', 'true');
-              console.log(sessionStorage.getItem('logado'))
               this.cancel();
-              console.info;
-              // this.updateSubscription = interval(3000).subscribe((val) => )
+              this.router.navigateByUrl('/LoggedPage', { replaceUrl: true })
+              console.info();
             }else{
               sessionStorage.setItem('logado', 'false');
-              console.log(sessionStorage.getItem('logado'))
               this.mensagemErro = "Usuário ou senha incorretos.";
               this.errado = true;
             }

@@ -8,8 +8,7 @@ import {
 } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import Swiper from 'swiper';
-import { tenista } from '../interfaces/tenista';
-import { tenistas } from '../data/tenistas';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   standalone: true,
@@ -20,37 +19,33 @@ import { tenistas } from '../data/tenistas';
   styleUrls: ['./ranking.component.scss'],
 })
 export class RankingComponent implements OnInit {
-  
-  // @Input() items: any;
+  @Input() class: any;
 
-  public tenista: tenista[] = tenistas
+  public etapa: string = '1';
 
-  
-  
-  @ViewChild('swiperContainer', { static: true }) swiper: Swiper;
-  public results: tenista[] = [...this.tenista];
-  public names: string[] = this.tenista.map((person) => person.nome);
+  public tenista: any = [];
+  public results: any[] = [];
+  public names: string[] = [];
+
+  @ViewChild('swiper-container', { static: false }) swiper: Swiper;
   public swiperConfig = {
     slidesPerView: 1,
     allowTouchMove: false,
     autoHeight: false,
-    allowSlideNext: true,
-    allowSlidePrev: true
+    allowSlideNext: false,
+    allowSlidePrev: false,
   };
   currentIndex: number = 0;
-  
-  
-  constructor() {
+
+  constructor(private http: HttpClient) {}
+
+  async ngOnInit() {
+    this.getGeral(this.class);
   }
-  
-  ngOnInit() {}
 
   initSlides(slides: HTMLElement) {
     try {
-      this.swiper = new Swiper(
-        slides,
-        this.swiperConfig
-      );
+      this.swiper = new Swiper(slides, this.swiperConfig);
       this.swiper.init();
     } catch (e) {
       console.error(e);
@@ -62,34 +57,65 @@ export class RankingComponent implements OnInit {
   }
 
   handleInput(event: any) {
-    const found: tenista[] = [];
-    // console.log(this.tenista)
+    const found: any[] = [];
     const query = event.target.value.toLowerCase();
-    // console.log(query)
     if (query == '') {
       this.results = [...this.tenista];
     } else {
       let searchedNames = this.filterByName(this.names, query);
       for (let name of searchedNames) {
-        found.push(this.tenista.find((val) => val.nome == name)!);
+        found.push(this.tenista.find((val: any) => val.nomeTenista == name)!);
       }
-      this.results = found!;  
+      this.results = found!;
     }
   }
 
   goTo(slide: number, e: Event) {
-    this.swiper.slideTo(slide,100, false)
-    // this.swiper.slideNext()
-    this.slideChanged(e)
+    this.swiper.slideTo(slide, 100, false);
+    this.slideChanged(e);
   }
 
   swiperUpdateAutoHeight(time = 500) {
     setTimeout(() => this.swiper.updateAutoHeight(), time);
   }
 
-  slideChanged(e: Event){
-    console.log(this.swiper.activeIndex)
+  slideChanged(e: Event) {
+    console.log(this.swiper.activeIndex);
+    (this.swiper.activeIndex == 1) ? this.setEtapa(this.swiper.activeIndex) : this.setEtapa(this.swiper.activeIndex-1);
+    console.log(this.etapa)
+    this.getTenistas(this.class, this.etapa);
   }
 
+  getTenistas(classe: string, etapa: string) {
+    try {
+      console.log(classe, etapa);
+      this.http
+        .post('http://127.0.0.1:3000/tenistas', { class: classe, etapa: etapa })
+        .subscribe((res: any) => {
+          this.tenista = res;
+          this.results = [...this.tenista];
+          this.names = this.tenista.map((person: any) => person.nomeTenista);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  getGeral(classe: string) {
+    try {
+      console.log(classe);
+      this.http
+        .post('http://127.0.0.1:3000/tenistasGeral', { class: classe })
+        .subscribe((res: any) => {
+          this.tenista = res;
+          this.results = [...this.tenista];
+          this.names = this.tenista.map((person: any) => person.nomeTenista);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
+  setEtapa(num: number){
+    this.etapa = num.toString();
+  }
 }

@@ -1,15 +1,11 @@
 <ion-header>
   <div class="header-img">
-    <ion-img class="logo"
-    src="../../assets/logo-tenis-mouraoense.png"
-    >
+    <ion-img class="logo" src="../../assets/logo-tenis-mouraoense.png">
     </ion-img>
   </div>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button id="masculino">
-        Masculino
-      </ion-button>
+      <ion-button id="masculino"> Masculino </ion-button>
       <ion-popover trigger="masculino" triggerAction="hover">
         <ng-template>
           <ion-content class="ion-padding">
@@ -28,9 +24,7 @@
           </ion-content>
         </ng-template>
       </ion-popover>
-      <ion-button id="feminino">
-        Feminino
-      </ion-button>
+      <ion-button id="feminino"> Feminino </ion-button>
       <ion-popover trigger="feminino" triggerAction="hover">
         <ng-template>
           <ion-content class="ion-padding">
@@ -53,21 +47,17 @@
         Infantil
       </ion-button>
     </ion-buttons>
-    <ion-buttons *ngIf="!isLogado" slot="end">
-      <ion-button id="open-login">
-        <ion-icon slot="start" name="log-in"></ion-icon>
-        Log-In
+    <ion-buttons slot="end" (click)="openModal()">
+      <ion-button id="open-logout">
+        <ion-icon slot="start" name="log-out"></ion-icon>
+        Log-Out
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <app-ranking [class]="classe">
-  </app-ranking>
+  <app-ranking [class]="classe"> </app-ranking>
 
-  <app-login-screen>
-  </app-login-screen>
+  <app-login-screen> </app-login-screen>
 </ion-content>
-
-
