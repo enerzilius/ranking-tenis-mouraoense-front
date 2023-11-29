@@ -1,8 +1,63 @@
 
+<div>
+  <ion-buttons slot="start">
+    <ion-button id="masculino">
+      Masculino
+    </ion-button>
+    <ion-popover trigger="masculino" triggerAction="hover">
+      <ng-template>
+        <ion-content class="ion-padding">
+          <ion-button (click)="setClasse('1M')" fill="clear" expand="full" color="dark">
+            1ª Classe Masculina
+          </ion-button>
+          <ion-button (click)="setClasse('2M')" fill="clear" expand="full" color="dark">
+            2ª Classe Masculina
+          </ion-button>
+          <ion-button (click)="setClasse('3M')" fill="clear" expand="full" color="dark">
+            3ª Classe Masculina
+          </ion-button>
+          <ion-button (click)="setClasse('4M')" fill="clear" expand="full" color="dark">
+            4ª Classe Masculina
+          </ion-button>
+        </ion-content>
+      </ng-template>
+    </ion-popover>
+    <ion-button id="feminino">
+      Feminino
+    </ion-button>
+    <ion-popover trigger="feminino" triggerAction="hover">
+      <ng-template>
+        <ion-content class="ion-padding">
+          <ion-button (click)="setClasse('1F')" fill="clear" expand="full" color="dark">
+            1ª Classe Feminina
+          </ion-button>
+          <ion-button (click)="setClasse('2F')" fill="clear" expand="full" color="dark">
+            2ª Classe Feminina
+          </ion-button>
+          <ion-button (click)="setClasse('3F')" fill="clear" expand="full" color="dark">
+            3ª Classe Feminina
+          </ion-button>
+          <ion-button (click)="setClasse('4F')" fill="clear" expand="full" color="dark">
+            4ª Classe Feminina
+          </ion-button>
+          <ion-button (click)="setClasse('5M')" fill="clear" expand="full" color="dark">
+            5ª Classe Masculina
+          </ion-button>
+          <ion-button (click)="setClasse('6M')" fill="clear" expand="full" color="dark">
+            6ª Classe Masculina
+          </ion-button>
+        </ion-content>
+      </ng-template>
+    </ion-popover>
+    <ion-button id="infantil" (click)="setClasse('INF')">
+      Infantil
+    </ion-button>
+  </ion-buttons>
+</div>
 
 <div class="search-nav">
   <ion-segment [scrollable]="true" color="dark"> 
-    <ion-segment-button class="etapa-nav" (click)="getGeral(class)">
+    <ion-segment-button class="etapa-nav" (click)="getGeral(classe)">
       Geral
     </ion-segment-button>
     <ion-segment-button class="etapa-nav" (click)="goTo(2, $event)">
@@ -39,8 +94,8 @@
           <ion-item *ngIf="results.length <= 0">
             <ion-label>Nenhuma pontuação para esta etapa no momento!</ion-label>
           </ion-item>
-          <ion-item *ngFor="let result of results">
-            <ion-label>{{result.id}}</ion-label>
+          <ion-item *ngFor="let result of results; index as i">
+            <ion-label>{{i+1}}</ion-label>
             <ion-label>{{result.nomeTenista}}</ion-label>
             <ion-label>{{result.pontuacao}}</ion-label>
           </ion-item>

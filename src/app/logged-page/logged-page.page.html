@@ -21,6 +21,12 @@
             <ion-button (click)="setClasse('4M')" fill="clear" expand="full" color="dark">
               4ª Classe Masculina
             </ion-button>
+            <ion-button (click)="setClasse('5M')" fill="clear" expand="full" color="dark">
+              5ª Classe Masculina
+            </ion-button>
+            <ion-button (click)="setClasse('6M')" fill="clear" expand="full" color="dark">
+              6ª Classe Masculina
+            </ion-button>
           </ion-content>
         </ng-template>
       </ion-popover>
@@ -47,7 +53,13 @@
         Infantil
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="end" (click)="openModal()">
+    <ion-buttons slot="end" (click)="openAddTenista()">
+      <ion-button id="add-tenista">
+        <ion-icon slot="start" name="person-add"></ion-icon>
+        Cadastrar Tenista
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" (click)="openLogOut()">
       <ion-button id="open-logout">
         <ion-icon slot="start" name="log-out"></ion-icon>
         Log-Out

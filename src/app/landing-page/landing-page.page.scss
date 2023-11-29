@@ -1,9 +1,9 @@
-.ion-padding{
-    --background: #FFA877;
-}
+// .ion-padding{
+//     --background: #FFA877;
+// }
 
 ion-content {
-    --background:#3b6457;
+//     --background:#3b6457;
 }
 
 .item-footer{
@@ -11,31 +11,39 @@ ion-content {
     border-top: dashed 1px #FFA877 ;
 }
 
+ion-thumbnail{
+    --size:80px
+}
+
+.toolbar{
+    width: 100%;
+}
+
 
 @media (min-width: 650px){
-    .header-img{
-        width: 100%;
-        height: 250px;
-        background-repeat: no-repeat;
-        background-size: auto;
-        background-image: url("../../assets/header_tenis.png");
-    }
+    // .header-img{
+    //     width: 100%;
+    //     height: 250px;
+    //     background-repeat: no-repeat;
+    //     background-size: auto;
+    //     background-image: url("../../assets/header_tenis.png");
+    // }
 
-    .logo {
-        height: 300px;
-    }
+    // .logo {
+    //     height: 300px;
+    // }
 }
 
 @media (max-width: 650px){
-    .header-img{
-        width: 100%;
-        height: 110px;
-        background-repeat: no-repeat;
-        background-size: auto;
-        background-image: url("../../assets/header_tenis.png");
-    }
+    // .header-img{
+    //     width: 100%;
+    //     height: 110px;
+    //     background-repeat: no-repeat;
+    //     background-size: auto;
+    //     background-image: url("../../assets/header_tenis.png");
+    // }
 
-    .logo {
-        height: 130px;
-    }
+    // .logo {
+    //     height: 130px;
+    // }
 }

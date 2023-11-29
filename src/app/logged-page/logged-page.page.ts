@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController, IonModal, ModalController } from '@ionic/angular';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { AddTenistaComponent } from '../add-tenista/add-tenista.component';
 
 @Component({
   selector: 'app-tabs',
@@ -29,14 +30,21 @@ export class LoggedPage implements OnInit {
   }
 
   checkIfLogged() {
-    sessionStorage.getItem('logado') == 'falase' || null
-      ? this.router.navigateByUrl('/landingPage', { replaceUrl: true })
+    sessionStorage.getItem('logado') == 'false' || null || undefined
+      ? this.router.navigateByUrl('/', { replaceUrl: true })
       : console.log('logado');
   }
 
-  async openModal(){
+  async openLogOut(){
     const modal = await this.modalCtrl.create({
       component: ConfirmationModalComponent,
+      cssClass: 'my-modal-class'
+    });
+    modal.present();
+  }
+  async openAddTenista(){
+    const modal = await this.modalCtrl.create({
+      component: AddTenistaComponent,
       cssClass: 'my-modal-class'
     });
     modal.present();

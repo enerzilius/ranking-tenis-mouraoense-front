@@ -19,11 +19,11 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./ranking.component.scss'],
 })
 export class RankingComponent implements OnInit {
-  @Input() class: any;
+  public classe: string = '1M';
 
   public etapa: string = '1';
 
-  public tenista: any = [];
+  public tenistas: any[] = [];
   public results: any[] = [];
   public names: string[] = [];
 
@@ -40,7 +40,7 @@ export class RankingComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   async ngOnInit() {
-    this.getGeral(this.class);
+    this.getGeral(this.classe);
   }
 
   initSlides(slides: HTMLElement) {
@@ -60,11 +60,11 @@ export class RankingComponent implements OnInit {
     const found: any[] = [];
     const query = event.target.value.toLowerCase();
     if (query == '') {
-      this.results = [...this.tenista];
+      this.results = [...this.tenistas];
     } else {
       let searchedNames = this.filterByName(this.names, query);
       for (let name of searchedNames) {
-        found.push(this.tenista.find((val: any) => val.nomeTenista == name)!);
+        found.push(this.tenistas.find((val: any) => val.nomeTenista == name)!);
       }
       this.results = found!;
     }
@@ -80,21 +80,20 @@ export class RankingComponent implements OnInit {
   }
 
   slideChanged(e: Event) {
-    console.log(this.swiper.activeIndex);
-    (this.swiper.activeIndex == 1) ? this.setEtapa(this.swiper.activeIndex) : this.setEtapa(this.swiper.activeIndex-1);
-    console.log(this.etapa)
-    this.getTenistas(this.class, this.etapa);
+    this.swiper.activeIndex == 1
+      ? this.setEtapa(this.swiper.activeIndex)
+      : this.setEtapa(this.swiper.activeIndex - 1);
+    this.getTenistas(this.classe, this.etapa);
   }
 
   getTenistas(classe: string, etapa: string) {
     try {
-      console.log(classe, etapa);
       this.http
         .post('http://127.0.0.1:3000/tenistas', { class: classe, etapa: etapa })
         .subscribe((res: any) => {
-          this.tenista = res;
-          this.results = [...this.tenista];
-          this.names = this.tenista.map((person: any) => person.nomeTenista);
+          this.tenistas = res;
+          this.results = [...this.tenistas];
+          this.names = this.tenistas.map((person: any) => person.nomeTenista);
         });
     } catch (error) {
       console.error(error);
@@ -103,19 +102,27 @@ export class RankingComponent implements OnInit {
   getGeral(classe: string) {
     try {
       console.log(classe);
+      // this.params.append("classe", classe);
+      // console.log(this.params)
       this.http
-        .post('http://127.0.0.1:3000/tenistasGeral', { class: classe })
+        .post(`http://127.0.0.1:3000/tenistasGeral`, { class: classe })
         .subscribe((res: any) => {
-          this.tenista = res;
-          this.results = [...this.tenista];
-          this.names = this.tenista.map((person: any) => person.nomeTenista);
+          this.tenistas = res;
+          this.results = [...this.tenistas];
+          this.names = this.tenistas.map((person: any) => person.nomeTenista);
         });
     } catch (error) {
       console.error(error);
     }
   }
 
-  setEtapa(num: number){
+  setEtapa(num: number) {
     this.etapa = num.toString();
+  }
+
+  setClasse(classe: string){
+    this.classe = classe;
+    console.log(this.classe)
+    this.getGeral(this.classe);
   }
 }

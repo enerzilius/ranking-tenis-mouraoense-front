@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Login:</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()"
+        ><ion-icon name="close"></ion-icon
+      ></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-item fill="clear">
+    <ion-icon name="person"></ion-icon>
+    <ion-input
+      placeholder="Nome do Tenista"
+      class="input"
+      type="text"
+    ></ion-input>
+  </ion-item>
+  <ion-item fill="clear">
+    <ion-icon name="person"></ion-icon>
+    <ion-select  placeholder="Sexo do jogador" (ionChange)="onChange($event)">
+      <ion-select-option value="M">Masculino</ion-select-option>
+      <ion-select-option value="F">Feminino</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item fill="clear">
+    <ion-icon name="log-in"></ion-icon>
+    <ion-select  placeholder="Classe" (ionChange)="onChange($event)" disabled="{{notSelected}}">
+      <ion-select-option *ngFor="let class of getClasses()" value="class">{{class}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <div class="button-box">
+    <ion-button (click)="submit()" color="primary" color="warning">
+      <ion-icon name="checkmark"></ion-icon>
+      Adicionar
+    </ion-button>
+  </div>
+</ion-content>
