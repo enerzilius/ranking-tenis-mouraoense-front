@@ -8,6 +8,7 @@ import { LoggedPageRoutingModule } from './logged-page-routing.module';
 import { LoggedPage } from './logged-page.page';
 
 import { RankingComponent } from '../ranking/ranking.component';
+import { RankingAdmComponent } from '../ranking-adm/ranking-adm.component';
 
 import { LoginScreenComponent } from '../login-screen/login-screen.component';
 
@@ -19,6 +20,7 @@ import { LoginScreenComponent } from '../login-screen/login-screen.component';
     LoggedPageRoutingModule,
     RankingComponent,
     LoginScreenComponent,
+    RankingAdmComponent
   ],
   declarations: [LoggedPage]
 })

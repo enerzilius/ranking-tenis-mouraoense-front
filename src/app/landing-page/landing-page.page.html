@@ -1,17 +1,17 @@
-<ion-header no-border>
-  <ion-item class="toolbar">
+<ion-header class='ion-no-border'>
+  <ion-toolbar>
     <ion-thumbnail class="logo"
     slot="start"
     >
       <img src="../../assets/logo-tenis-mouraoense.png"/>
     </ion-thumbnail>
     <ion-buttons *ngIf="!isLogado" slot="end">
-      <ion-button id="open-login">
+      <ion-button id="open-login" color="light">
         <ion-icon slot="start" name="log-in"></ion-icon>
         Log-In
       </ion-button>
     </ion-buttons>
-  </ion-item>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>

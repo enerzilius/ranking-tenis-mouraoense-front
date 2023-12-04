@@ -1,35 +1,53 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable, catchError, throwError } from "rxjs";
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, catchError, throwError } from 'rxjs';
 
 export interface Tenista {
-    nomeTenista: string,
-    sexo: string,
-    classe_sigla: string
+  nomeTenista: string;
+  sexo: string;
+  classe_sigla: string;
 }
 
 @Injectable({
-    providedIn: 'root',
-  })
+  providedIn: 'root',
+})
 export class TenistasService {
-    constructor(private http: HttpClient){}
+  constructor(private http: HttpClient) {}
 
-    async addPlayer(params: Tenista): Promise<Observable<Tenista>>{
-        return this.http.post<Tenista>('http://127.0.0.1:3000/addTenista', params).pipe(catchError(this.handleError))
+  async addPlayer(tenista: Tenista): Promise<Observable<Tenista>> {
+    console.log(tenista);
+    return this.http
+      .post<Tenista>('http://127.0.0.1:3000/addTenista', tenista)
+      .pipe(catchError(this.handleError));
+  }
 
+  handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `,
+        error.error
+      );
     }
+    // Return an observable with a user-facing error message.
+    return throwError(
+      () => new Error('Something bad happened; please try again later.')
+    );
+  }
 
-    handleError(error: HttpErrorResponse) {
-        if (error.status === 0) {
-            // A client-side or network error occurred. Handle it accordingly.
-            console.error('An error occurred:', error.error);
-          } else {
-            // The backend returned an unsuccessful response code.
-            // The response body may contain clues as to what went wrong.
-            console.error(
-              `Backend returned code ${error.status}, body was: `, error.error);
-          }
-          // Return an observable with a user-facing error message.
-          return throwError(() => new Error('Something bad happened; please try again later.'));
+  addTenista(tenista: Tenista) {
+    try {
+      console.log(tenista);
+      // this.params.append("classe", classe);
+      // console.log(this.params)
+      this.http
+        .post(`http://127.0.0.1:3000/tenistasGeral`, tenista).subscribe((res) => console.log(res))
+    } catch (error) {
+      console.error(error);
     }
+  }
 }

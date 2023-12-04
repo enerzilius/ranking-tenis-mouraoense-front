@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button fill="clear" color="dark" (click)="close()" slot="start">
+      <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+    </ion-button>
+    <ion-button color="primary" (click)="edit()" slot="end" *ngIf="action === 'buscar'">
+      <ion-icon name="create"></ion-icon>
+      Editar
+    </ion-button>
+    <ion-button color="warning" (click)="save()" slot="end" *ngIf="action === 'editar'">
+      <ion-icon name="checkmark"></ion-icon>
+      Salvar
+    </ion-button>
+    <ion-button color="danger" (click)="delete()" slot="end">
+      <ion-icon name="trash"></ion-icon>
+      Deletar
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-item fill="clear">
+    <ion-icon name="person"></ion-icon>
+    <ion-input
+      placeholder="Nome do Tenista"
+      class="input"
+      type="text"
+      (ionInput)="handleInput($event)"
+      disabled="{{!editing}}"
+    ></ion-input>
+  </ion-item>
+  <ion-item fill="clear">
+    <ion-icon name="person"></ion-icon>
+    <ion-select  placeholder="Sexo do jogador" (ionChange)="onChange($event)" disabled="{{!editing}}">
+      <ion-select-option value="M">Masculino</ion-select-option>
+      <ion-select-option value="F">Feminino</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item fill="clear">
+    <ion-icon name="log-in"></ion-icon>
+    <ion-select  placeholder="Classe" (ionChange)="onChange($event)" disabled="{{!editing}}">
+      <ion-select-option *ngFor="let class of getClasses()" value="{{class}}">{{class}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-content>

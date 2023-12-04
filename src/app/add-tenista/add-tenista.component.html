@@ -15,6 +15,7 @@
       placeholder="Nome do Tenista"
       class="input"
       type="text"
+      (ionInput)="handleInput($event)"
     ></ion-input>
   </ion-item>
   <ion-item fill="clear">
@@ -27,11 +28,11 @@
   <ion-item fill="clear">
     <ion-icon name="log-in"></ion-icon>
     <ion-select  placeholder="Classe" (ionChange)="onChange($event)" disabled="{{notSelected}}">
-      <ion-select-option *ngFor="let class of getClasses()" value="class">{{class}}</ion-select-option>
+      <ion-select-option *ngFor="let class of getClasses()" value="{{class}}">{{class}}</ion-select-option>
     </ion-select>
   </ion-item>
   <div class="button-box">
-    <ion-button (click)="submit()" color="primary" color="warning">
+    <ion-button (click)="submit()" color="primary" color="warning" expand="block">
       <ion-icon name="checkmark"></ion-icon>
       Adicionar
     </ion-button>

@@ -2,23 +2,18 @@
 //     --background: #FFA877;
 // }
 
-ion-content {
-//     --background:#3b6457;
-}
-
-.item-footer{
-    --background: #3b6457;
-    border-top: dashed 1px #FFA877 ;
-}
+// ion-content {
+// //     --background:#3b6457;
+// }
 
 ion-thumbnail{
     --size:80px
 }
 
-.toolbar{
+ion-toolbar{
     width: 100%;
+    --background: url("../../assets/quadra-saibro.png") no-repeat center / cover;
 }
-
 
 @media (min-width: 650px){
     // .header-img{

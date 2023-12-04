@@ -1,66 +1,18 @@
-<ion-header>
-  <div class="header-img">
-    <ion-img class="logo" src="../../assets/logo-tenis-mouraoense.png">
-    </ion-img>
-  </div>
+<ion-header class='ion-no-border'>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button id="masculino"> Masculino </ion-button>
-      <ion-popover trigger="masculino" triggerAction="hover">
-        <ng-template>
-          <ion-content class="ion-padding">
-            <ion-button (click)="setClasse('1M')" fill="clear" expand="full" color="dark">
-              1ª Classe Masculina
-            </ion-button>
-            <ion-button (click)="setClasse('2M')" fill="clear" expand="full" color="dark">
-              2ª Classe Masculina
-            </ion-button>
-            <ion-button (click)="setClasse('3M')" fill="clear" expand="full" color="dark">
-              3ª Classe Masculina
-            </ion-button>
-            <ion-button (click)="setClasse('4M')" fill="clear" expand="full" color="dark">
-              4ª Classe Masculina
-            </ion-button>
-            <ion-button (click)="setClasse('5M')" fill="clear" expand="full" color="dark">
-              5ª Classe Masculina
-            </ion-button>
-            <ion-button (click)="setClasse('6M')" fill="clear" expand="full" color="dark">
-              6ª Classe Masculina
-            </ion-button>
-          </ion-content>
-        </ng-template>
-      </ion-popover>
-      <ion-button id="feminino"> Feminino </ion-button>
-      <ion-popover trigger="feminino" triggerAction="hover">
-        <ng-template>
-          <ion-content class="ion-padding">
-            <ion-button (click)="setClasse('1F')" fill="clear" expand="full" color="dark">
-              1ª Classe Feminina
-            </ion-button>
-            <ion-button (click)="setClasse('2F')" fill="clear" expand="full" color="dark">
-              2ª Classe Feminina
-            </ion-button>
-            <ion-button (click)="setClasse('3F')" fill="clear" expand="full" color="dark">
-              3ª Classe Feminina
-            </ion-button>
-            <ion-button (click)="setClasse('4F')" fill="clear" expand="full" color="dark">
-              4ª Classe Feminina
-            </ion-button>
-          </ion-content>
-        </ng-template>
-      </ion-popover>
-      <ion-button id="infantil" (click)="setClasse('INF')">
-        Infantil
-      </ion-button>
-    </ion-buttons>
+    <ion-thumbnail class="logo"
+    slot="start"
+    >
+      <img src="../../assets/logo-tenis-mouraoense.png"/>
+    </ion-thumbnail>
     <ion-buttons slot="end" (click)="openAddTenista()">
-      <ion-button id="add-tenista">
+      <ion-button id="add-tenista" color="light">
         <ion-icon slot="start" name="person-add"></ion-icon>
         Cadastrar Tenista
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end" (click)="openLogOut()">
-      <ion-button id="open-logout">
+      <ion-button id="open-logout" color="light">
         <ion-icon slot="start" name="log-out"></ion-icon>
         Log-Out
       </ion-button>
@@ -68,8 +20,9 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
-  <app-ranking [class]="classe"> </app-ranking>
+  <app-ranking-adm [class]="classe"> </app-ranking-adm>
 
   <app-login-screen> </app-login-screen>
 </ion-content>
