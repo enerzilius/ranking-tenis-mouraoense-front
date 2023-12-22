@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, Input, OnInit } from '@angular/core';
 import { AlertController, IonicModule, ModalController } from '@ionic/angular';
-import { TenistasService } from '../tenistas-service/tenistas.service';
+import { TenistasService, Tenista, TenistaPontos } from '../tenistas-service/tenistas.service';
 
 @Component({
   standalone: true,
@@ -12,18 +12,36 @@ import { TenistasService } from '../tenistas-service/tenistas.service';
   styleUrls: ['./tenista-component.component.scss'],
 })
 export class TenistaComponent implements OnInit {
+  @Input() tenista: any[];
+  @Input() id: number;
+  pontuacao: number[] = [];
+
   nome: string;
   sexo: string;
   classe: string;
   action: string = 'buscar';
   editing: boolean = false;
+  pointsEdited: boolean = false;
   constructor(
     private tenistasService: TenistasService,
     private alertController: AlertController,
-    public modalController: ModalController
-  ) {}
+    public modalController: ModalController,
+  ) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.tenista)
+    this.pontuacao = this.tenista.map((tenista) => tenista.pontuacao)
+    while(this.pontuacao.length < 4) {
+      this.pontuacao.push(0)
+    }
+    console.log(this.pontuacao)
+    this.nome = this.tenista[0].nomeTenista;
+    this.sexo = this.tenista[0].sexo;
+    this.classe = this.tenista[0].classe_sigla;
+    console.log(this.nome, this.sexo, this.classe)
+
+  }
 
   close() {
     this.modalController.dismiss(null, 'cancel');
@@ -38,6 +56,7 @@ export class TenistaComponent implements OnInit {
 
   async delete(){
     await this.confirmPanel()
+    this.close()
   }
 
   save(){
@@ -45,6 +64,17 @@ export class TenistaComponent implements OnInit {
     this.editing = false
     console.log(this.action)
     console.log(this.editing)
+    let editTenista = { nomeTenista: this.nome, sexo: this.sexo, classe_sigla: this.classe}
+    console.log(editTenista)
+    this.tenistasService.editTenista(this.id, editTenista)
+    if (this.pointsEdited == true){
+      for(var i in this.pontuacao){
+        if (this.pontuacao[i] != 0){
+          this.tenistasService.editPontos(this.id, +i+1 , +this.pontuacao[i])
+        }
+      }
+    }
+    this.close()
   }
 
   async confirmPanel(){
@@ -63,6 +93,8 @@ export class TenistaComponent implements OnInit {
           {
             text: 'Sim',
             handler: () => {
+              this.tenistasService.deletePontuacao(this.id, 1)
+              this.tenistasService.deleteTenista(this.id)
               return resolve(true);
             },
           },
@@ -111,8 +143,28 @@ export class TenistaComponent implements OnInit {
     });
   }
 
-  handleInput(e: any) {
-    this.nome = e.target.value;
+  handleInput(e: any, target: string) {
+    switch(target){
+      case 'name':
+        this.nome = e.target.value;
+        break;
+      case 'etapa1':
+        this.pointsEdited = true;
+        this.pontuacao[0] = e.target.value;
+        break;
+      case 'etapa2':
+        this.pointsEdited = true;
+        this.pontuacao[1] = e.target.value;
+        break;
+      case 'etapa3':
+        this.pointsEdited = true;
+        this.pontuacao[2] = e.target.value;
+        break;
+      case 'etapa4':
+        this.pointsEdited = true;
+        this.pontuacao[3] = e.target.value;
+        break;
+    }
   }
 
   onChange(e: any) {

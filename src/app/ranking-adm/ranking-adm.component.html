@@ -97,7 +97,7 @@
           <ion-item *ngFor="let result of results; index as i"  class="table">
             <ion-label>{{i+1}}</ion-label>
             <ion-label>
-              <ion-button class="nome" fill="clear" (click)="openTenistaModal(result.id)">{{result.nomeTenista}}</ion-button>
+              <ion-button class="nome" fill="clear" (click)="getTenistaPontosByID(result.id)">{{result.nomeTenista}}</ion-button>
             </ion-label>
             <ion-label class="pontos">{{result.pontuacao}}</ion-label>
           </ion-item>

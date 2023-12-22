@@ -7,7 +7,7 @@ import {
   ModalController,
 } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
-import { Tenista, TenistasService } from '../tenistas-service/tenistas.service';
+import { Tenista, TenistasService, addTenista } from '../tenistas-service/tenistas.service';
 
 @Component({
   standalone: true,
@@ -17,6 +17,7 @@ import { Tenista, TenistasService } from '../tenistas-service/tenistas.service';
   styleUrls: ['./add-tenista.component.scss'],
 })
 export class AddTenistaComponent implements OnInit {
+  id: string = '';
   nome: string = '';
   sexo: string = '';
   classe: string = '';
@@ -25,7 +26,7 @@ export class AddTenistaComponent implements OnInit {
 
   @ViewChild(IonModal) modal: IonModal;
 
-  tenista: Tenista;
+  tenista: addTenista;
 
   constructor(
     private tenistasService: TenistasService,
@@ -36,6 +37,7 @@ export class AddTenistaComponent implements OnInit {
   ngOnInit() {}
 
   close() {
+    this.id = '';
     this.nome = '';
     this.sexo = '';
     this.classe = '';
@@ -44,12 +46,14 @@ export class AddTenistaComponent implements OnInit {
 
   async submit() {
     this.tenista = {
+      id: +this.id,
       nomeTenista: this.nome,
       sexo: this.sexo,
       classe_sigla: this.classe,
     };
     console.log(this.tenista);
-    await this.tenistasService.addTenista(this.tenista);
+    this.tenistasService.addTenista(this.tenista);
+    this.simpleAlert('Tenista adicionado com sucesso!')
     this.close();
   }
 
@@ -58,8 +62,15 @@ export class AddTenistaComponent implements OnInit {
     await alert.present();
   }
 
-  handleInput(e: any) {
-    this.nome = e.target.value;
+  handleInput(e: any, target: string) {
+    switch(target){
+      case 'id':
+        this.id = e.target.value;
+        break;
+      case 'nome':
+        this.nome = e.target.value;
+        break;
+    }
   }
 
   onChange(e: any) {

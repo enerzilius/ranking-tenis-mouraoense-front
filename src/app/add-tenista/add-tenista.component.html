@@ -12,10 +12,19 @@
   <ion-item fill="clear">
     <ion-icon name="person"></ion-icon>
     <ion-input
+      placeholder="ID do Tenista"
+      class="input"
+      type="text"
+      (ionInput)="handleInput($event, 'id')"
+    ></ion-input>
+  </ion-item>
+  <ion-item fill="clear">
+    <ion-icon name="person"></ion-icon>
+    <ion-input
       placeholder="Nome do Tenista"
       class="input"
       type="text"
-      (ionInput)="handleInput($event)"
+      (ionInput)="handleInput($event, 'nome')"
     ></ion-input>
   </ion-item>
   <ion-item fill="clear">

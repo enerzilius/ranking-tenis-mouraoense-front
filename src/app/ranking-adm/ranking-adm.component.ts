@@ -9,8 +9,9 @@ import {
 import { IonicModule, ModalController } from '@ionic/angular';
 import Swiper from 'swiper';
 import { HttpClient } from '@angular/common/http';
-import { Tenista } from '../tenistas-service/tenistas.service';
+import { Tenista, TenistasService } from '../tenistas-service/tenistas.service';
 import { TenistaComponent } from '../tenista-component/tenista-component.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -21,6 +22,7 @@ import { TenistaComponent } from '../tenista-component/tenista-component.compone
   styleUrls: ['./ranking-adm.component.scss'],
 })
 export class RankingAdmComponent implements OnInit {
+  public currentTenista = {};
   public classe: string = '1M';
 
   public etapa: string = '1';
@@ -39,7 +41,11 @@ export class RankingAdmComponent implements OnInit {
   };
   currentIndex: number = 0;
 
-  constructor(private http: HttpClient, public modalController: ModalController) {}
+  constructor(
+    private http: HttpClient,
+    public modalController: ModalController,
+    public tenistaService: TenistasService
+  ) {}
 
   async ngOnInit() {
     this.getGeral(this.classe);
@@ -118,11 +124,25 @@ export class RankingAdmComponent implements OnInit {
     }
   }
 
+  async getTenistaPontosByID(id: number) {
+    this.http
+      .get<any>(`http://127.0.0.1:3000/tenistasPontos/${id}`)
+      .subscribe((res) => {
+        console.log(res)
+        this.currentTenista = res;
+        this.openTenistaModal(id)
+      });
+  }
+
   async openTenistaModal(idTenista: number) {
-    console.log('aberto')
+    console.log('aberto');
     const modal = await this.modalController.create({
       component: TenistaComponent,
       cssClass: 'my-modal-class',
+      componentProps: {
+        id: idTenista,
+        tenista: this.currentTenista,
+      },
     });
     modal.present();
   }
